@@ -268,11 +268,11 @@ void prepare() {
 	//cube = new Object();
 	//cube->addTriangle(triu1);
 	//cube->addTriangle(triu2);
-	//cube->tdoList.push_back( FileUtil::loadCommonTexData("../Win32Project2/Resource/floor.bntex"));
+	//cube->tdoList.push_back( FileUtil::loadCommonTexData("../SoftRender/Resource/floor.bntex"));
 	//cube->rp = myRenderpipeline;
 
-	teapot = LoadObj::loadFromFile("../Win32Project2/Resource/ch_t.obj"); 
-	teapot->tdoList.push_back( FileUtil::loadCommonTexData("../Win32Project2/Resource/ghxp.bntex"));
+	teapot = LoadObj::loadFromFile("../SoftRender/Resource/ch_t.obj"); 
+	teapot->tdoList.push_back( FileUtil::loadCommonTexData("../SoftRender/Resource/ghxp.bntex"));
 	teapot->rp = myRenderpipeline;
 }
 void repaint() {
