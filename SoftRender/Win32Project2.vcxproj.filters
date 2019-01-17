@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="main">
+      <UniqueIdentifier>{69f6e398-e43d-4745-b9b5-6a99d57dfae0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BaseDataClass">
+      <UniqueIdentifier>{448a3d92-4d27-457c-b739-b4437c335faf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{656a32b5-49ca-487e-bb72-ae5642624f87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main\main.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseDataClass\Triangle.cpp">
+      <Filter>BaseDataClass</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseDataClass\Vertex.cpp">
+      <Filter>BaseDataClass</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseDataClass\Camera.cpp">
+      <Filter>BaseDataClass</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseDataClass\Matrix.cpp">
+      <Filter>BaseDataClass</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseDataClass\Vector3.cpp">
+      <Filter>BaseDataClass</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseDataClass\Vector4.cpp">
+      <Filter>BaseDataClass</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseDataClass\Object.cpp">
+      <Filter>BaseDataClass</Filter>
+    </ClCompile>
+    <ClCompile Include="main\RenderPipeline.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="util\FPSUtil.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\FileUtil.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\TexDataObject.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\LoadObj.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\MatrixState.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BaseDataClass\Vertex.h">
+      <Filter>BaseDataClass</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseDataClass\Camera.h">
+      <Filter>BaseDataClass</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseDataClass\Matrix.h">
+      <Filter>BaseDataClass</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseDataClass\Vector3.h">
+      <Filter>BaseDataClass</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseDataClass\Vector4.h">
+      <Filter>BaseDataClass</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseDataClass\Object.h">
+      <Filter>BaseDataClass</Filter>
+    </ClInclude>
+    <ClInclude Include="main\RenderPipeline.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="util\FPSUtil.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\FileUtil.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\TexDataObject.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\LoadObj.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\MatrixState.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\Constant.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\UserData.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseDataClass\Triangle.h">
+      <Filter>BaseDataClass</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\floor.bntex">
+      <Filter>Resource</Filter>
+    </None>
+    <None Include="Resource\ghxp.bntex">
+      <Filter>Resource</Filter>
+    </None>
+    <None Include="Resource\image.bntex">
+      <Filter>Resource</Filter>
+    </None>
+    <None Include="Resource\qipan.bntex">
+      <Filter>Resource</Filter>
+    </None>
+  </ItemGroup>
+</Project>
