@@ -16,5 +16,6 @@ public:
 	static double dotProduct(const Vector3 &_v1,const Vector3 &_v2);//点积
 	static Vector3 crossProduct(const Vector3 & _v1, const Vector3 & _v2);//叉积
 	static Vector3 normalize(const Vector3 &_v);
+	static Vector3 reflect(const Vector3 inDirection, const Vector3 inNormal);//求反射向量
 };
 

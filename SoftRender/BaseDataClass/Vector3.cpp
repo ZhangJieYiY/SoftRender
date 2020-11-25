@@ -79,6 +79,14 @@ Vector3 Vector3::normalize(const Vector3 &_v)
 	return out;
 }
 
+Vector3 Vector3::reflect(Vector3 inDirection,Vector3 inNormal)
+{
+	Vector3 Out;
+	Out = inDirection - inNormal * 2 * (float)(dotProduct(inDirection, inNormal));
+	return Out;
+	
+}
+
 Vector3::~Vector3()
 {
 

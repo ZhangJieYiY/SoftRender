@@ -123,7 +123,7 @@ LRESULT CALLBACK  WndProc(HWND _hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 			t %= 2;
 			myRenderpipeline->rasterizationStateInfo.colorMode = (GET_COLOR_MODE)t;
 			break;
-		case 'L'://L    光照是否开启
+		case 'L'://L    灯光是否开启
 			myRenderpipeline->lightAble = !myRenderpipeline->lightAble;
 			break;
 		case 'R'://R    旋转是否开启
@@ -132,7 +132,7 @@ LRESULT CALLBACK  WndProc(HWND _hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		case 'D'://D    深度测试是否开启
 			myRenderpipeline->depthTestAble = !myRenderpipeline->depthTestAble;
 			break;
-		case 'E'://E    旋转是否开启
+		case 'E'://E   是否考虑灯光影响
 			myRenderpipeline->noLight = !myRenderpipeline->noLight;
 			break;
 		case 'Z'://Z     透视矫正

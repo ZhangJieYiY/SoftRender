@@ -281,8 +281,10 @@ void RenderPipeline::calLightResult(Point &p, const Object &obj, const Vertex &v
 	Vector3 E = Vector3(currCamera->pos->x - vPos4.x, currCamera->pos->y - vPos4.y, currCamera->pos->z - vPos4.z);//视线向量
 	E = Vector3::normalize(E);//
 	Vector3 H = E + I;
-	H = Vector3(H);//入射向量与视线向量的半角向量
-	double specular = obj.ks*pow(max(0, Vector3::dotProduct(I, E)), 50);
+	H = Vector3::normalize(H);//入射向量与视线向量的半角向量
+	Vector3 R = Vector3::reflect(I, H);
+	R = Vector3::normalize(R);
+	double specular = obj.ks*pow(max(0, Vector3::dotProduct(E,R)), 50);
 	lightResult += ambient + diffuse + specular;
 	p.lightResult = lightResult;
 }
