@@ -302,7 +302,7 @@ void repaint() {
 	{
 		MatrixState::pushMatrix();
 		MatrixState::scale(0.6f, 0.6f, 0.6f);
-		teapot->dawSelf();
+		teapot->drawSelf();
 		MatrixState::popMatrix();
 	}
 	MatrixState::popMatrix();

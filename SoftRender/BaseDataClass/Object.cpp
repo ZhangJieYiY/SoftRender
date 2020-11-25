@@ -35,7 +35,7 @@ void Object::addTriangle(Triangle *triangle) {
 	triangleList.push_back(triangle);
 }
 
-void Object::dawSelf()
+void Object::drawSelf()
 {
 	rp->bindSampler(tdoList);
 	rp->pushConstant();//ÍÆËÍ³£Á¿

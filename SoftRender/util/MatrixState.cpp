@@ -17,11 +17,11 @@ void MatrixState::setInitStack()
 void MatrixState::pushMatrix()
 {
 	stackTop++;
-	memcpy(&mStack[stackTop][0], &mMMatrix->matData[0],sizeof(double)*16);
+	memcpy(&mStack[stackTop][0], &mMMatrix->matData[0], sizeof(double) * 16);
 }
 void MatrixState::popMatrix()
 {
-	memcpy(&mMMatrix->matData[0], &mStack[stackTop][0],sizeof(double) * 16);
+	memcpy(&mMMatrix->matData[0], &mStack[stackTop][0], sizeof(double) * 16);
 	stackTop--;
 }
 void MatrixState::translate(float x, float y, float z)
@@ -37,7 +37,7 @@ void MatrixState::scale(float x, float y, float z)
 	mMMatrix->scaleM(x, y, z);
 }
 
-void MatrixState::setCamera(Matrix &vm, const Vector3 &pos,const Vector3 &target,const Vector3 &up) {
+void MatrixState::setCamera(Matrix &vm, const Vector3 &pos, const Vector3 &target, const Vector3 &up) {
 	Matrix::setLookatM
 	(
 		vm,
@@ -50,7 +50,7 @@ void MatrixState::setCamera(Matrix &vm, const Vector3 &pos,const Vector3 &target
 		up.x,
 		up.y,
 		up.z
-	); 
+	);
 }
 void MatrixState::setFrustumM
 (
@@ -61,7 +61,7 @@ void MatrixState::setFrustumM
 	float bottom,
 	float near,
 	float far
-){
+) {
 	Matrix::setPerspectiveM(pm, left, right, top, bottom, near, far);
 }
 Matrix* MatrixState::getMMatrix() {
@@ -70,12 +70,12 @@ Matrix* MatrixState::getMMatrix() {
 Matrix* MatrixState::getPMatrix() {
 	return mPMatrix;
 }
-Matrix* MatrixState::getMVPatrix() {
+Matrix* MatrixState::getMVPMatrix() {
 	Matrix::multipMM(*mMVPMatrix, *mVMatrix, *mMMatrix);
 	Matrix::multipMM(*mMVPMatrix, *mPMatrix, *mMVPMatrix);
 	return mMVPMatrix;
 }
-Matrix* MatrixState::getMVatrix() {
+Matrix* MatrixState::getMVMatrix() {
 	Matrix::multipMM(*mMVMatrix, *mVMatrix, *mMMatrix);
 	return mMVMatrix;
 }

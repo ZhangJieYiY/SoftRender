@@ -11,7 +11,7 @@ public:
 	float kd, ka, ks;//漫反射  环境光 镜面光系数
 	vector<Triangle*> triangleList;
 	void addTriangle(Triangle *triangle);
-	void dawSelf();
+	void drawSelf();
 	vector<TexDataObject *>tdoList; 
 	RenderPipeline *rp ;//用于绘制的管线对象指针
 

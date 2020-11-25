@@ -85,8 +85,8 @@ void RenderPipeline::setPixel(Point &p)
 		int row = (t*tdo->height);
 		int col = (s*tdo->width);
 
-		row = row < tdo->height ? row : row%tdo->height;
-		col = col < tdo->width ? col : col%tdo->width;
+		row = row < tdo->height ? row : row % tdo->height;
+		col = col < tdo->width ? col : col % tdo->width;
 
 
 		long valueIndex = row * tdo->width * 4 + col * 4;
@@ -227,7 +227,7 @@ void RenderPipeline::draw(const Object &obj) {
 }
 
 bool RenderPipeline::backCullTest(const Triangle &tri, const Matrix &traM) {
-	if (tri.verList.size()==0)return true;
+	if (tri.verList.size() == 0)return true;
 	if (rasterizationStateInfo.cullMode != NONE)//需要剪裁
 	{
 		/*背面剪裁*/
@@ -242,7 +242,7 @@ bool RenderPipeline::backCullTest(const Triangle &tri, const Matrix &traM) {
 
 		Vector4 vFNormal4 = Vector4(faceNormal.x, faceNormal.y, faceNormal.z, 1);
 		Matrix::multipVM(vFNormal4, vFNormal4, traM);//将面法向量转换到世界空间中
-		faceNormal = Vector3(vFNormal4.x, vFNormal4.y, vFNormal4.z);//视线向量
+		faceNormal = Vector3(vFNormal4.x, vFNormal4.y, vFNormal4.z);
 		faceNormal = Vector3::normalize(faceNormal);
 
 		double dot = Vector3::dotProduct(viewRay, faceNormal);
@@ -301,7 +301,7 @@ void RenderPipeline::present(HDC hdc) {
 		0, 0,//位图在矩形区域的位置坐标
 		0,//从什么位置开始显示，哪一行开始
 		windowHeight,//扫描线数量
-		colorBufferForDraw,
+		colorBufferForDraw,//这个就是存储每个像素值的数组
 		&bmi,
 		DIB_RGB_COLORS
 	);
@@ -510,7 +510,7 @@ void RenderPipeline::gouraudTriangleForVerColor(const Point &p1, const Point &p2
 		if (yStart > windowHeight)return;//起始值超出屏幕下边缘
 		if (yStart < 0)yStart = 0;//高于屏幕上边缘，重新赋值，从上边缘开始计算
 		if (yEnd < 0)return;//结束值高于屏幕上边缘
-		if (yEnd > windowHeight)yEnd = windowHeight;//结束值超出屏幕下边缘，重新赋值，从上边缘结束计算
+		if (yEnd > windowHeight)yEnd = windowHeight;//结束值超出屏幕下边缘，重新赋值，计算到下边缘为止
 
 
 		dx_start = (yStart - pt[v1].y)*slope_start;
@@ -927,20 +927,16 @@ void RenderPipeline::drawLine(const Point &p0, const Point &p1)
 	x = (float)x0;
 	y = (float)y0;
 	Point interPt;
-	Point tempPt;
 	switch (rasterizationStateInfo.colorMode)
 	{
 	case Ver_Color:
 		for (int i = 1; i <= steps; i++)
 		{
-			tempPt.x = x;
-			tempPt.y = y;
-
 			w = interWReci(x0, y0, x1, y1, w0, w1, x, y);
 			interPt.x = x;
 			interPt.y = y;
 			interPt.w = w;
-			interPt.color = interColor(p0, p1, tempPt);
+			interPt.color = interColor(p0, p1, interPt);
 			interPt.lightResult = interAttriByW(x0, y0, x1, y1, x, y, w0, w1, w, l0, l1);
 
 			setPixel(interPt);
@@ -972,8 +968,8 @@ void RenderPipeline::drawLine(const Point &p0, const Point &p1)
 double RenderPipeline::interAttriByW(double x0, double y0, double x1, double y1, double x, double y, double w0, double w1, double w, double attri0, double attri1) {
 	double t = distance(x0, y0, x, y) / distance(x1, y1, x0, y0);
 	double result;
-	if (perCorr){
-		result = (attri0 * w0 + t*(attri1 * w1 - attri0 * w0)) / w;
+	if (perCorr) {
+		result = (attri0 * w0 + t * (attri1 * w1 - attri0 * w0)) / w;
 	}
 	else {
 		result = attri0 + (attri1 - attri0)*t;
@@ -986,8 +982,8 @@ void RenderPipeline::pushUniform() {//mvp矩阵
 
 void RenderPipeline::pushConstant() {//当前变换矩阵  和mvp矩阵
 
-	memcpy(MVMatrix->matData, MatrixState::getMVatrix()->matData, sizeof(double) * 16);
-	memcpy(MVPMatrix->matData, MatrixState::getMVPatrix()->matData, sizeof(double) * 16);
+	memcpy(MVMatrix->matData, MatrixState::getMVMatrix()->matData, sizeof(double) * 16);
+	memcpy(MVPMatrix->matData, MatrixState::getMVPMatrix()->matData, sizeof(double) * 16);
 	memcpy(mMatrix->matData, MatrixState::getMMatrix()->matData, sizeof(double) * 16);
 	memcpy(MPMatrix->matData, MatrixState::getPMatrix()->matData, sizeof(double) * 16);
 }
@@ -1025,7 +1021,7 @@ void RenderPipeline::RenderListClip(vector<Triangle*>&renderlist, ClipPlaneFlag 
 
 	double nx0, nx1, nx2, ny0, ny1, ny2, nz0, nz1, nz2;
 
-	Vector3 v=Vector3();
+	Vector3 v = Vector3();
 
 	Triangle* temp_tri;
 	size_t size = renderlist.size();
@@ -1036,7 +1032,7 @@ void RenderPipeline::RenderListClip(vector<Triangle*>&renderlist, ClipPlaneFlag 
 		//根据左右裁剪面判断
 		if (clip_flags & CLIP_POLY_X_PLANE)
 		{
-			z_factor =( currCamera->f/ currCamera->n)*currCamera->r / currCamera->f;
+			z_factor = (currCamera->f / currCamera->n)*currCamera->r / currCamera->f;
 
 			z_test = z_factor * curr_tri->verList[0]->z;
 
@@ -1227,7 +1223,7 @@ void RenderPipeline::RenderListClip(vector<Triangle*>&renderlist, ClipPlaneFlag 
 
 					//当前三角形的v0不变,计算新的v1，v2
 					// 右裁剪点坐标
-					VertexCreate(curr_tri->verList[v0] ,curr_tri->verList[v1], v);
+					VertexCreate(curr_tri->verList[v0], curr_tri->verList[v1], v);
 					t1 = ((currCamera->n - curr_tri->verList[v0]->z) / v.z);
 					xi = curr_tri->verList[v0]->x + v.x * t1;
 					yi = curr_tri->verList[v0]->y + v.y * t1;
@@ -1278,7 +1274,7 @@ void RenderPipeline::RenderListClip(vector<Triangle*>&renderlist, ClipPlaneFlag 
 					ui = curr_tri->verList[v0]->s + (curr_tri->verList[v2]->s - curr_tri->verList[v0]->s) * t2;
 					vi = curr_tri->verList[v0]->t + (curr_tri->verList[v2]->t - curr_tri->verList[v0]->t) * t2;
 					curr_tri->verList[v2]->s = ui;
-					curr_tri->verList[v2]->t= vi;
+					curr_tri->verList[v2]->t = vi;
 					// 左裁剪点的颜色值
 					clip_red = r0 + (r2 - r0) * t2;
 					clip_green = g0 + (g2 - g0) * t2;
@@ -1300,7 +1296,7 @@ void RenderPipeline::RenderListClip(vector<Triangle*>&renderlist, ClipPlaneFlag 
 					Vertex* _v1 = new Vertex(tv1->x, tv1->y, tv1->z, tv1->nx, tv1->ny, tv1->nz, tv1->s, tv1->t, tv1->color);
 					Vertex* _v2 = new Vertex(tv2->x, tv2->y, tv2->z, tv2->nx, tv2->ny, tv2->nz, tv2->s, tv2->t, tv2->color);
 					Vertex* _v3 = new Vertex(tv3->x, tv3->y, tv3->z, tv3->nx, tv3->ny, tv3->nz, tv3->s, tv3->t, tv3->color);
-					temp_tri = new Triangle (_v1,_v2,_v3);
+					temp_tri = new Triangle(_v1, _v2, _v3);
 
 					if (vertex_ccodes[0] == CLIP_CODE_LZ)
 					{
@@ -1333,21 +1329,21 @@ void RenderPipeline::RenderListClip(vector<Triangle*>&renderlist, ClipPlaneFlag 
 					x02i = curr_tri->verList[v0]->x + v.x * t2;
 					y02i = curr_tri->verList[v0]->y + v.y * t2;
 
-					GetRGBValue(curr_tri->verList[v0]->color,r0, g0, b0);
-					GetRGBValue(curr_tri->verList[v1]->color,r1, g1, b1);
-					GetRGBValue(curr_tri->verList[v2]->color,r2, g2, b2);
+					GetRGBValue(curr_tri->verList[v0]->color, r0, g0, b0);
+					GetRGBValue(curr_tri->verList[v1]->color, r1, g1, b1);
+					GetRGBValue(curr_tri->verList[v2]->color, r2, g2, b2);
 					// 裁剪点的颜色值
 					clip_red = r0 + (r1 - r0) * t1;
 					clip_green = g0 + (g1 - g0) * t1;
 					clip_blue = b0 + (b1 - b0) * t1;
-					curr_tri->verList[v0]->color = Color((unsigned char) clip_red, (unsigned char)clip_green, (unsigned char)clip_blue);
+					curr_tri->verList[v0]->color = Color((unsigned char)clip_red, (unsigned char)clip_green, (unsigned char)clip_blue);
 					temp_tri->verList[v1]->color = Color((unsigned char)clip_red, (unsigned char)clip_green, (unsigned char)clip_blue);
 					// 裁剪点的颜色值
 					clip_red = r0 + (r2 - r0) * t2;
 					clip_green = g0 + (g2 - g0) * t2;
 					clip_blue = b0 + (b2 - b0) * t2;
 					temp_tri->verList[v0]->color = Color((unsigned char)clip_red, (unsigned char)clip_green, (unsigned char)clip_blue);
-														  
+
 
 					// 裁剪点的顶点坐标
 					curr_tri->verList[v0]->x = x01i;
