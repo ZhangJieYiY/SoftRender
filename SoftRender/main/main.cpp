@@ -271,8 +271,10 @@ void prepare() {
 	//cube->tdoList.push_back( FileUtil::loadCommonTexData("../SoftRender/Resource/floor.bntex"));
 	//cube->rp = myRenderpipeline;
 
-	teapot = LoadObj::loadFromFile("../SoftRender/Resource/ch_t.obj"); 
-	teapot->tdoList.push_back( FileUtil::loadCommonTexData("../SoftRender/Resource/ghxp.bntex"));
+	teapot = LoadObj::loadFromFile("../SoftRender/Resource/ch_t.obj");
+	//teapot->tdoList.push_back(FileUtil::loadCommonTexData("../SoftRender/Resource/ghxp.bntex"));
+	teapot->tdoList.push_back(FileUtil::loadbmp_decode_file("../SoftRender/Resource/ghxp.bmp"));
+	
 	teapot->rp = myRenderpipeline;
 }
 void repaint() {

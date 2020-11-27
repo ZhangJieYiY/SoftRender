@@ -176,6 +176,9 @@
     <None Include="Resource\image.bntex" />
     <None Include="Resource\qipan.bntex" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resource\1a7c38cf07ce5346.bmp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

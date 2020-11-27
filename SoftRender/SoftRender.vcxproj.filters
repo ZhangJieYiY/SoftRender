@@ -120,4 +120,9 @@
       <Filter>Resource</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resource\1a7c38cf07ce5346.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+  </ItemGroup>
 </Project>
